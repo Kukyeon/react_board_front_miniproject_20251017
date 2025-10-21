@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Navbar from "./component/Navbar";
+import Home from "./pages/Home";
+import Board from "./pages/Board";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Detail from "./pages/Detail";
+import Write from "./pages/Write";
+import { useEffect, useState } from "react";
+import api from "./api/axiosConfig";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const checkUser = async () => {
+    try {
+      const res = await api.get("api/auth/me");
+      setUser(res.data.username);
+    } catch {
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  const handleLogout = async () => {
+    await api.post("api/auth/logout");
+    setUser(null);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar onLogout={handleLogout} user={user} />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/login" element={<Login onLogin={setUser} />}></Route>
+        <Route path="/Board" element={<Board user={user} />}></Route>
+        <Route path="/board/write" element={<Write user={user} />}></Route>
+        <Route path="/board/:id" element={<Detail user={user} />}></Route>
+      </Routes>
     </div>
   );
 }
