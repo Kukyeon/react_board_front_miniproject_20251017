@@ -8,6 +8,7 @@ function Navbar({ onLogout, user }) {
       <div className="menu">
         <Link to="/">홈</Link>
         <Link to="/board">게시판</Link>
+        <Link to="/Location">오시는길</Link>
         {!user && <Link to="/login">로그인</Link>}
         {!user && <Link to="/signup">회원가입</Link>}
         {user && (

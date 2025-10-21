@@ -9,6 +9,8 @@ import Detail from "./pages/Detail";
 import Write from "./pages/Write";
 import { useEffect, useState } from "react";
 import api from "./api/axiosConfig";
+import Location from "./pages/Location";
+import Footer from "./component/Footer";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -39,9 +41,11 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/login" element={<Login onLogin={setUser} />}></Route>
         <Route path="/Board" element={<Board user={user} />}></Route>
+        <Route path="/Location" element={<Location />}></Route>
         <Route path="/board/write" element={<Write user={user} />}></Route>
         <Route path="/board/:id" element={<Detail user={user} />}></Route>
       </Routes>
+      <Footer></Footer>
     </div>
   );
 }

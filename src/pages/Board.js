@@ -58,6 +58,11 @@ function Board({ user }) {
   return (
     <div className="container">
       <h2>자유게시판</h2>
+      <div className="write-button-container">
+        <button className="write-button" onClick={handleWrite}>
+          글쓰기
+        </button>
+      </div>
       {loading && <p>게시판 목록 로딩중..</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       <table className="board-table">
@@ -129,11 +134,6 @@ function Board({ user }) {
         >
           {" "}
           ▶{" "}
-        </button>
-      </div>
-      <div className="write-button-container">
-        <button className="write-button" onClick={handleWrite}>
-          글쓰기
         </button>
       </div>
     </div>
