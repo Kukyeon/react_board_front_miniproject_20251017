@@ -39,7 +39,6 @@ function Detail({ user }) {
   const loadComments = async () => {
     try {
       const res = await api.get(`/api/comments/${id}`);
-
       setComments(res.data);
     } catch (err) {
       console.error(err);
